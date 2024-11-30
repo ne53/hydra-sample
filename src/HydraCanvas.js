@@ -9,11 +9,13 @@ const HydraCanvas = () => {
         hydraRef.current = new Hydra({
             canvas: canvasRef.current,
             detectAudio: false,
+            width: window.innerWidth,
+            height: window.innerHeight,
         });
 
         s0.initImage("./photo.jpg");
         src(s0)
-            .scale(5)
+            .scale(1)
             .modulate(noise(1), () => 1.5 * Math.sin(0.1 * time))
             .out(o0);
 
