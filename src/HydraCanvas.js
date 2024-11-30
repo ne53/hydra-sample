@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Hydra from "hydra-synth";
+import { useWindowSize } from "@react-hook/window-size";
 
 const HydraCanvas = () => {
     const canvasRef = useRef(null);
     const hydraRef = useRef(null);
-
+    const [width, height] = useWindowSize();
     useEffect(() => {
         hydraRef.current = new Hydra({
             canvas: canvasRef.current,
@@ -18,8 +19,8 @@ const HydraCanvas = () => {
 
         const resizeCanvas = () => {
             if (canvasRef.current) {
-                canvasRef.current.width = window.innerWidth;
-                canvasRef.current.height = window.innerHeight;
+                canvasRef.current.width = width;
+                canvasRef.current.height = height;
             }
         };
 
@@ -28,7 +29,6 @@ const HydraCanvas = () => {
         window.addEventListener("resize", resizeCanvas);
 
         return () => {
-            window.removeEventListener("resize", resizeCanvas);
             hydraRef.current = null;
         };
     }, []);
